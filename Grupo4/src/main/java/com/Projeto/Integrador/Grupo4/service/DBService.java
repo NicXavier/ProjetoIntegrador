@@ -131,9 +131,18 @@ public class DBService {
 				+ "um povo a outro, de forma didática e vibrante. Distante de formalismos, o livro instiga e envolve o"
 				+ " leitor página por página, levando-o a conhecer e interpretar melhor os fatos que nos trouxeram aos "
 				+ "dias de hoje",38.90,"Geoffrey Blainey",2015,56,"Português",8539507676l,8539507672l,"Austrália","Fundamento","Fisico",336,c3);
-					
+		
+		BookModel b11 = new BookModel("React - Aprenda Praticando: Desenvolva Aplicações web Reais com uso da Biblioteca React e de Seus Módulos Auxiliares", "React é uma biblioteca para a criação de sites, interfaces gráficas e aplicações web, criada pelo Facebook, e seu uso tem crescido muito, sendo usada por grandes empresas, como Netflix, Walmart e The New York Times. Neste livro, eminentemente prático, Maujor, com sua reconhecida didática, fornece ao leitor uma visão detalhada dos conceitos básicos e recursos da biblioteca React. Você aprenderá a desenvolver aplicativos React completos, passo a passo, desde o zero até a hospedagem em um servidor remoto. ",
+				46.56, "Maurício Samy Silva", 2021, 50, "Português", 6586057396l, 9786586057393l, "Brasil", "Novatec Editora", "Digital", 240, c2);
+		BookModel b12 = new BookModel("HTML e CSS: projete e construa websites", "Bem-vindo a uma melhor maneira de aprender HTML & CSS.Se você quer projetar, construir do zero ou ter mais controle sobre um site existente, este livro lhe ajudará a criar conteúdos atrativos e amigáveis.",
+				156.00, "Jon Duckett", 2016, 96, "Português", 8576089394l, 9788576089391l, "Brasil", "Alta Books", "Digital", 512, c2);
+				BookModel b13 = new BookModel("Código limpo: Habilidades práticas do Agile Software", "Mesmo um código ruim pode funcionar. Mas se ele não for limpo, pode acabar com uma empresa de desenvolvimento. Perdem-se a cada ano horas incontáveis e recursos importantes devido a um código mal escrito. Mas não precisa ser assim. O renomado especialista em software, Robert C. Martin, apresenta um paradigma revolucionário com Código limpo: Habilidades Práticas do Agile Software.",
+				77.52, "Robert C. Martin", 2009, 100, "Português", 8576082675l, 9788576082675l, "Brasil", "Alta Books", "Fisico", 425, c2);
+				BookModel b14 = new BookModel("Introdução à Programação com Python: Algoritmos e Lógica de Programação Para Iniciantes", "Este livro é orientado ao iniciante em programação. Os conceitos básicos de programação, como expressões, variáveis, repetições, decisões, listas, dicionários, conjuntos, funções, arquivos, classes, objetos e banco de dados com SQLite 3 são apresentados um a um com exemplos e exercícios.",
+				55.90, "Nilo Ney Coutinho Menezes", 2019, 90, "Português", 8575227181l, 9788575227183l, "Brasil", "Novatec Editora", "Digital", 328, c2);
+		
 		cRepository.saveAll(Arrays.asList(c1,c2,c3,c4,c5,c6));
-		bRepository.saveAll(Arrays.asList(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10));
+		bRepository.saveAll(Arrays.asList(b1,b2,b3,b4,b5,b6,b7,b8,b9,b10, b11, b12, b13, b14));
 	}
 	
 	
