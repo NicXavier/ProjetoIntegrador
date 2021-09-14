@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -26,20 +27,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private Environment env;
 	
 	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		
+		auth.inMemoryAuthentication()
+		.withUser("root")
+		.password(passwordEncoder().encode("root"))
+		.authorities("ROLE_USER");
+		
+		auth.userDetailsService(service);
+	}
+	
+	@Override
 	protected void configure (HttpSecurity http) throws Exception{
 		//Liberar o aplicativo de gerenciamento do banco de dados h2
         if (Arrays.asList(env.getActiveProfiles()).contains("test")) {
             http.headers().frameOptions().disable();
-    }
+        }
 
-    http.authorizeRequests()
-    .antMatchers(HttpMethod.PUT,"/user/auth").permitAll()
-    .antMatchers(HttpMethod.POST,"/user/register").permitAll()
-    .anyRequest().authenticated()
-    .and().httpBasic()
-    .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-    .and().cors()
-    .and().csrf().disable();
+	    http.authorizeRequests()
+	    .antMatchers(HttpMethod.PUT,"/user/auth").permitAll()
+	    .antMatchers(HttpMethod.POST,"/user/register").permitAll()
+	    .antMatchers(HttpMethod.OPTIONS).permitAll()
+	    .anyRequest().authenticated()
+	    .and().httpBasic()
+	    .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+	    .and().cors()
+	    .and().csrf().disable();
 	}
 	
 	@Bean
