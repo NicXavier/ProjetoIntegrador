@@ -1,6 +1,7 @@
 package com.Projeto.Integrador.Grupo4.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.validation.Valid;
 
@@ -16,41 +17,56 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.Projeto.Integrador.Grupo4.Model.BookModel;
-import com.Projeto.Integrador.Grupo4.Model.CategoryModel;
 import com.Projeto.Integrador.Grupo4.Repository.BookRepository;
+import com.Projeto.Integrador.Grupo4.service.BookService;
+import com.Projeto.Integrador.Grupo4.service.exception.DataIntegratyViolationException;
 
 @RestController
 @RequestMapping("/book")
 public class BookController {
-	
+
 	@Autowired
 	private BookRepository repository;
-	
-	@GetMapping
-	public ResponseEntity <List<BookModel>> getAll(){
+
+	@Autowired
+	private BookService service;
+
+	@GetMapping("/all")
+	public ResponseEntity<List<BookModel>> getAll() {
 		List<BookModel> obj = repository.findAll();
-		return ResponseEntity.ok().body(obj);
-		 
+		if (obj.isEmpty()) {
+			throw new DataIntegratyViolationException("Não existe nenhum livro cadastrado");
+		} else {
+			return ResponseEntity.status(200).body(obj);
+		}
 	}
-	
+
 	@GetMapping(value = "/{id}")
-	public ResponseEntity<BookModel> findById(@PathVariable Integer id) {
-		ResponseEntity<BookModel> obj = repository.findById((int) id).map(resp -> ResponseEntity.ok(resp))
-				.orElse(ResponseEntity.notFound().build());
-		return obj;
+	public ResponseEntity<BookModel> findById(@PathVariable Long id) {
+		Optional<BookModel> idObj = repository.findById(id);
+		if (idObj.isPresent()) {
+			return ResponseEntity.status(200).body(idObj.get());
+		} else {
+			throw new DataIntegratyViolationException("Não existe livro com esse id");
+		}
 	}
-	@PostMapping
-	public ResponseEntity<BookModel> post(@Valid @RequestBody BookModel book) {
-		return ResponseEntity.status(201).body(repository.save(book));
+
+	@GetMapping(value = "/title/{title}")
+	public ResponseEntity<List<BookModel>> findByDescriptionTitle(@PathVariable String title) {
+		ResponseEntity<List<BookModel>> titleObj = service.findByDescriptionTitle(title);
+		return titleObj;
+
 	}
-	
+
 	@PutMapping
 	public ResponseEntity<BookModel> update(@Valid @RequestBody BookModel updateBook) {
 		return ResponseEntity.status(201).body(repository.save(updateBook));
 	}
-	
-	@DeleteMapping
-	public void deleteById(@PathVariable Integer id) {
+
+	@DeleteMapping(value = "/{id}")
+	public void deleteById(@PathVariable Long id) {
+		findById(id);
 		repository.deleteById(id);
 	}
+
 }

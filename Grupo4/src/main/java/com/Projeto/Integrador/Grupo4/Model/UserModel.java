@@ -12,12 +12,12 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
-@Table(name = "user")
+@Table(name = "tb_user")
 public class UserModel{
-
+//attributes
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int IdClient;
+	private long IdClient;
 	@NotBlank(message = "Informe o Nome")
 	private String name;
 	@NotBlank(message = "Informe o Email")
@@ -54,11 +54,11 @@ public class UserModel{
 	}
 
 	//Metodos GET e SET
-	public int getIdClient() {
+	public long getIdClient() {
 		return IdClient;
 	}
 
-	public void setIdClient(int idClient) {
+	public void setIdClient(long idClient) {
 		IdClient = idClient;
 	}
 

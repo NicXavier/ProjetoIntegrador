@@ -8,9 +8,9 @@ import org.springframework.context.annotation.Profile;
 import com.Projeto.Integrador.Grupo4.service.DBService;
 
 @Configuration
-@Profile("test")
-public class TestConfig {
-	
+@Profile("prod")
+public class ProdConfig {
+
 	@Autowired
 	private DBService service;
 	

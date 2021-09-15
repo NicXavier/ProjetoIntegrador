@@ -1,25 +1,30 @@
 package com.Projeto.Integrador.Grupo4.Model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
-@Table(name = "book")
+@Table(name = "tb_book")
 public class BookModel {
-
+//attributes
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int idProduct;
+	private long idProduct;
 
 	@NotBlank(message = "Informe o título")
 	private String title;
 
+	@Column(length = 100000)
 	@NotBlank(message = "Insira uma descrição")
 	private String description;
 
@@ -35,30 +40,72 @@ public class BookModel {
 	@NotNull(message = "Informe a quantidade do estoque")
 	private int inventory;
 	
-	
 	@NotBlank
 	private String language;
 	
 	@NotNull
-	@Size (min = 13)
-	private int ISBN;
+	private long isbn;
 	
 	@NotNull
-	@Size (min = 13)
-	private int EAN;
+	private long ean;
 	
-	@NotBlank
-	private String Country;
+	@NotBlank(message = "Informe o País")
+	private String country;
+	
+	@NotBlank(message = "Informe a Editora")
+	private String publisher;
+
+	@NotBlank(message = "Informe o Formato")
+	private String format;
 	
 	@NotNull(message = "Informe a quantidade páginas")
 	private int pages;
 	
+	@ManyToOne
+	@JoinColumn (name = "IdCategory")
+	@JsonIgnoreProperties ({"book"})
+	private CategoryModel category;
+	
+//construction	
+	
+	public BookModel() {
+		
+	}
+	
+	public BookModel(@NotBlank(message = "Informe o título") String title,
+			@NotBlank(message = "Insira uma descrição") String description,
+			@NotNull(message = "Informe o valor do livro") Double price,
+			@NotBlank(message = "Insira o nome do autor") String author,
+			@NotNull(message = "Insira o ano de publicação") int year,
+			@NotNull(message = "Informe a quantidade do estoque") int inventory, @NotBlank String language,
+			@NotNull long isbn, @NotNull long ean, @NotBlank(message = "Informe o País") String country,
+			@NotBlank(message = "Informe a Editora") String publisher,
+			@NotBlank(message = "Informe o Formato") String format,
+			@NotNull(message = "Informe a quantidade páginas") int pages, CategoryModel category) {
+		
+		
+		this.title = title;
+		this.description = description;
+		this.price = price;
+		this.author = author;
+		this.year = year;
+		this.inventory = inventory;
+		this.language = language;
+		this.isbn = isbn;
+		this.ean = ean;
+		this.country = country;
+		this.publisher = publisher;
+		this.format = format;
+		this.pages = pages;
+		this.category = category;
+		
+	}
 
-	public int getIdProduct() {
+	public long getIdProduct() {
 		return idProduct;
 	}
 
-	public void setIdProduct(int idProduct) {
+	public void setIdProduct(long idProduct) {
 		this.idProduct = idProduct;
 	}
 
@@ -118,30 +165,46 @@ public class BookModel {
 		this.language = language;
 	}
 
-	public int getISBN() {
-		return ISBN;
+	public long getIsbn() {
+		return isbn;
 	}
 
-	public void setISBN(int iSBN) {
-		ISBN = iSBN;
+	public void setIsbn(long isbn) {
+		this.isbn = isbn;
 	}
 
-	public int getEAN() {
-		return EAN;
+	public long getEan() {
+		return ean;
 	}
 
-	public void setEAN(int eAN) {
-		EAN = eAN;
+	public void setEan(long ean) {
+		this.ean = ean;
 	}
 
 	public String getCountry() {
-		return Country;
+		return country;
 	}
 
 	public void setCountry(String country) {
-		Country = country;
+		this.country = country;
 	}
-	
+
+	public String getPublisher() {
+		return publisher;
+	}
+
+	public void setPublisher(String publisher) {
+		this.publisher = publisher;
+	}
+
+	public String getFormat() {
+		return format;
+	}
+
+	public void setFormat(String format) {
+		this.format = format;
+	}
+
 	public int getPages() {
 		return pages;
 	}
@@ -150,5 +213,12 @@ public class BookModel {
 		this.pages = pages;
 	}
 
-	
+	public CategoryModel getCategory() {
+		return category;
+	}
+
+	public void setCategory(CategoryModel category) {
+		this.category = category;
+	}
+
 }
