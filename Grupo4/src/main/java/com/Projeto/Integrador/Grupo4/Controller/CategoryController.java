@@ -21,9 +21,12 @@ import com.Projeto.Integrador.Grupo4.Repository.CategoryRepository;
 import com.Projeto.Integrador.Grupo4.service.CategoryService;
 import com.Projeto.Integrador.Grupo4.service.exception.DataIntegratyViolationException;
 
+import io.swagger.annotations.Api;
+
 @CrossOrigin("*")
 @RestController
 @RequestMapping("/category")
+@Api(tags = "Controlador de CATEGORY", description = "Utilitario de Postagens")
 public class CategoryController {
 	
 	@Autowired

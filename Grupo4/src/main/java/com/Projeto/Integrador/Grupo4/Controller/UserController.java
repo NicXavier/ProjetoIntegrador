@@ -22,9 +22,12 @@ import com.Projeto.Integrador.Grupo4.Repository.UserRepository;
 import com.Projeto.Integrador.Grupo4.service.UserService;
 import com.Projeto.Integrador.Grupo4.service.exception.DataIntegratyViolationException;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @CrossOrigin("*")
 @RequestMapping("/user")
+@Api(tags = "Controlador de USER", description = "Utilitario de Postagens")
 public class UserController {
 
 	@Autowired

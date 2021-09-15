@@ -21,8 +21,11 @@ import com.Projeto.Integrador.Grupo4.Repository.BookRepository;
 import com.Projeto.Integrador.Grupo4.service.BookService;
 import com.Projeto.Integrador.Grupo4.service.exception.DataIntegratyViolationException;
 
+import io.swagger.annotations.Api;
+
 @RestController
 @RequestMapping("/book")
+@Api(tags = "Controlador de BOOK", description = "Utilitario de Postagens")
 public class BookController {
 
 	@Autowired
