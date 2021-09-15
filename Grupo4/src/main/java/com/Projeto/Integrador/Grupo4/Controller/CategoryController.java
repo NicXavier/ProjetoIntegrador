@@ -21,9 +21,12 @@ import com.Projeto.Integrador.Grupo4.Repository.CategoryRepository;
 import com.Projeto.Integrador.Grupo4.service.CategoryService;
 import com.Projeto.Integrador.Grupo4.service.exception.DataIntegratyViolationException;
 
-@CrossOrigin("*")
+import io.swagger.annotations.Api;
+
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/category")
+@Api(tags = "Controlador de CATEGORY", description = "Utilitario de Postagens")
 public class CategoryController {
 	
 	@Autowired
@@ -44,7 +47,7 @@ public class CategoryController {
 
 	@GetMapping(value = "/{id}")
 	public ResponseEntity<CategoryModel> findById(@PathVariable Long id) {
-		Optional<CategoryModel> idObj = repository.findById((long) id);
+		Optional<CategoryModel> idObj = repository.findById(id);
 		if(idObj.isPresent()) {
 			return ResponseEntity.status(200).body(idObj.get());
 		}else{

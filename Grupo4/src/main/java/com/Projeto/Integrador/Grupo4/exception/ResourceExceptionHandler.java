@@ -27,7 +27,7 @@ public class ResourceExceptionHandler {
 	}
 	
 	/*
-	 * Erros caso algum campo esteja vazio*/
+	 * Erros caso algum campo esteja vazio
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<StandardError> dataIntegratyViolationException(MethodArgumentNotValidException e){
 		ValidationError error = new ValidationError(System.currentTimeMillis(), HttpStatus.BAD_REQUEST.value(), "Erro na validação dos campos!");
@@ -38,4 +38,5 @@ public class ResourceExceptionHandler {
 		
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
 	}
+	*/
 }

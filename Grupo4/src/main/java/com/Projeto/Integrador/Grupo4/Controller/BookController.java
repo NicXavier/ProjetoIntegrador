@@ -7,6 +7,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -21,8 +22,12 @@ import com.Projeto.Integrador.Grupo4.Repository.BookRepository;
 import com.Projeto.Integrador.Grupo4.service.BookService;
 import com.Projeto.Integrador.Grupo4.service.exception.DataIntegratyViolationException;
 
+import io.swagger.annotations.Api;
+
 @RestController
+@CrossOrigin("*")
 @RequestMapping("/book")
+@Api(tags = "Controlador de BOOK", description = "Utilitario de Postagens")
 public class BookController {
 
 	@Autowired
@@ -56,11 +61,6 @@ public class BookController {
 		ResponseEntity<List<BookModel>> titleObj = service.findByDescriptionTitle(title);
 		return titleObj;
 
-	}
-
-	@PostMapping
-	public ResponseEntity<BookModel> post(@Valid @RequestBody BookModel book) {
-		return ResponseEntity.status(201).body(repository.save(book));
 	}
 
 	@PutMapping
